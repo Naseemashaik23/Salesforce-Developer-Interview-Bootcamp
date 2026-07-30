@@ -1,0 +1,34 @@
+trigger CheckCGPA on Application__c (before insert, before update) {
+
+    Set<Id> studentIds = new Set<Id>();
+    Set<Id> jobIds = new Set<Id>();
+
+    for (Application__c app : Trigger.new) {
+        if (app.Student__c != null) {
+            studentIds.add(app.Student__c);
+        }
+        if (app.Job__c != null) {
+            jobIds.add(app.Job__c);
+        }
+    }
+
+    Map<Id, Student__c> students = new Map<Id, Student__c>(
+        [SELECT Id, CGPA__c FROM Student__c WHERE Id IN :studentIds]
+    );
+
+    Map<Id, Job__c> jobs = new Map<Id, Job__c>(
+        [SELECT Id, Minimum_CGPA__c FROM Job__c WHERE Id IN :jobIds]
+    );
+
+    for (Application__c app : Trigger.new) {
+
+        Student__c student = students.get(app.Student__c);
+        Job__c job = jobs.get(app.Job__c);
+
+        if (student != null && job != null &&
+            student.CGPA__c < job.Minimum_CGPA__c) {
+
+            app.addError('Student CGPA is below the minimum requirement for this job.');
+        }
+    }
+}
