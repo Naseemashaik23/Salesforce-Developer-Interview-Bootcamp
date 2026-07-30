@@ -1,0 +1,42 @@
+# Salesforce Record-Triggered Flow Automation
+
+Record-Triggered Flows are used to automate business processes whenever a record is created or updated. These flows eliminate manual work and ensure data consistency.
+
+---
+
+## Flow 1 – Set Application Date Automatically
+
+**Flow Category:** Before-Save Record-Triggered Flow
+
+**Object:** Application__c
+
+**Execution:** When a new Application record is created.
+
+**Functionality:**
+The flow automatically assigns the current date to the **Application Date** field, ensuring every application has a valid submission date without manual entry.
+
+---
+
+## Flow 2 – Placement Officer Email Notification
+
+**Flow Category:** After-Save Record-Triggered Flow
+
+**Object:** Application__c
+
+**Execution:** When a new Application record is successfully created.
+
+**Functionality:**
+An email notification is automatically sent to the Placement Officer informing them that a new placement application has been submitted.
+
+---
+
+## Flow 3 – Automatic Offer Letter Generation
+
+**Flow Category:** After-Save Record-Triggered Flow
+
+**Object:** Application__c
+
+**Execution:** When an existing Application record is updated and the **Status** changes to **Selected**.
+
+**Functionality:**
+The flow creates a new **Offer Letter** record and links it to the corresponding Application, Student, and Job records whenever a candidate is selected.
