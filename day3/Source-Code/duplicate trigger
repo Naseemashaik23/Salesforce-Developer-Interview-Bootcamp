@@ -1,0 +1,29 @@
+trigger PreventDuplicateApplication on Application__c (before insert) {
+
+    Set<Id> studentIds = new Set<Id>();
+    Set<Id> jobIds = new Set<Id>();
+
+    for (Application__c app : Trigger.new) {
+        if (app.Student__c != null && app.Job__c != null) {
+            studentIds.add(app.Student__c);
+            jobIds.add(app.Job__c);
+        }
+    }
+
+    List<Application__c> existingApplications = [
+        SELECT Student__c, Job__c
+        FROM Application__c
+        WHERE Student__c IN :studentIds
+        AND Job__c IN :jobIds
+    ];
+
+    for (Application__c app : Trigger.new) {
+        for (Application__c existing : existingApplications) {
+            if (app.Student__c == existing.Student__c &&
+                app.Job__c == existing.Job__c) {
+
+                app.addError('This student has already applied for this job.');
+            }
+        }
+    }
+}
