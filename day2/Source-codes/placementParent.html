@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Placement Management System">
+        <div class="slds-p-around_medium">
+
+            <lightning-input
+                label="Student Registration Number"
+                value={studentId}
+                onchange={handleChange}>
+            </lightning-input>
+
+            <br/>
+
+            <template if:true={studentId}>
+                <c-placement-child
+                    student-id={studentId}
+                    onnotify={handleNotify}>
+                </c-placement-child>
+            </template>
+
+            <br/>
+
+            <p>{message}</p>
+
+        </div>
+    </lightning-card>
+</template>
