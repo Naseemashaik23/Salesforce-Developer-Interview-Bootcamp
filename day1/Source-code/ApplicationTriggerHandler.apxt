@@ -26,13 +26,37 @@ public class ApplicationTriggerHandler {
         }
 
         for(Application__c app : newApplications){
-
             String key = app.Student__c + '-' + app.Job__c;
 
             if(existingKeys.contains(key)){
                 app.addError('Duplicate application is not allowed.');
             }
-
         }
     }
+
+    //👇 THIS METHOD MUST BE INSIDE THE CLASS
+    public static void updateStudentPlacementStatus(List<Application__c> applications){
+
+        List<Student__c> studentsToUpdate = new List<Student__c>();
+
+        for(Application__c app : applications){
+
+            if(app.Status__c == 'Selected'){
+
+                studentsToUpdate.add(
+                    new Student__c(
+                        Id = app.Student__c,
+                        Placement_Status__c = 'Placed'
+                    )
+                );
+
+            }
+
+        }
+
+        if(!studentsToUpdate.isEmpty()){
+            update studentsToUpdate;
+        }
+    }
+
 }
