@@ -1,0 +1,55 @@
+# Day 5 - Building Business Logic with Apex
+
+## Topics Learned
+
+### 1. Business Logic
+- Business logic is the decision-making part of an application.
+- It validates business rules before storing data.
+- Without business logic, software only stores information and cannot make decisions.
+
+### 2. Service Classes
+Created separate Apex service classes:
+- StudentService
+- JobService
+- ApplicationService
+
+Each service has a single business responsibility.
+
+### 3. Application Workflow
+Implemented the following workflow:
+
+Receive Application
+↓
+Check Duplicate
+↓
+Validate Deadline
+↓
+Validate Eligibility
+↓
+Save Record
+↓
+Return Result
+
+### 4. Apex Concepts Used
+- Apex Classes
+- Apex Methods
+- SOQL
+- DML
+- Helper Methods
+- Trigger Handler
+- Validation Logic
+
+### 5. Business Validations
+Implemented:
+- Duplicate Application Check
+- CGPA Validation
+- Active Backlogs Validation
+- Graduation Year Validation
+- Application Deadline Validation
+
+### 6. Engineering Principles Learned
+- One Service = One Responsibility
+- Build incrementally
+- Separate business logic from UI
+- Use meaningful method names
+- Write reusable helper methods
