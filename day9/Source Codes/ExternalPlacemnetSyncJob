@@ -1,0 +1,25 @@
+public with sharing class ExternalPlacementSyncJob implements Queueable {
+
+    private Id offerId;
+
+    public ExternalPlacementSyncJob(Id offerId){
+        this.offerId = offerId;
+    }
+
+    public void execute(QueueableContext context){
+
+        Offer__c offer = [
+            SELECT Id, Name
+            FROM Offer__c
+            WHERE Id = :offerId
+            LIMIT 1
+        ];
+
+        System.debug('Synchronizing Offer with External System: ' + offer.Name);
+
+        // Queue the next job
+        System.enqueueJob(
+            new PlacementNotificationJob(offer.Id)
+        );
+    }
+}
