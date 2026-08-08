@@ -1,0 +1,217 @@
+<template>
+
+    <!-- ====================================================== -->
+    <!-- MAIN CARD -->
+    <!-- ====================================================== -->
+
+    <lightning-card
+        title="Application Review Portal"
+        icon-name="standard:people">
+
+        <div class="portal-container">
+
+
+            <!-- ================================================== -->
+            <!-- PENDING / APPLIED APPLICATIONS -->
+            <!-- ================================================== -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        Pending Applications
+                    </h2>
+
+                    <span>
+                        {applications.length}
+                    </span>
+
+                </div>
+
+
+                <!-- LOADING -->
+
+                <template if:true={isLoading}>
+
+                    <div class="state-container">
+
+                        <lightning-spinner
+                            alternative-text="Loading applications"
+                            size="medium">
+                        </lightning-spinner>
+
+                        <p>
+                            Loading applications...
+                        </p>
+
+                    </div>
+
+                </template>
+
+
+                <!-- ERROR -->
+
+                <template if:true={errorMessage}>
+
+                    <div class="error-container">
+
+                        <h3>
+                            Unable to Load Applications
+                        </h3>
+
+                        <p>
+                            {errorMessage}
+                        </p>
+
+                    </div>
+
+                </template>
+
+
+                <!-- TABLE -->
+
+                <template if:false={isLoading}>
+
+                    <template if:false={errorMessage}>
+
+                        <template if:true={applications.length}>
+
+                            <lightning-datatable
+                                key-field="Id"
+                                data={applications}
+                                columns={columns}
+                                onrowaction={handleRowAction}>
+                            </lightning-datatable>
+
+                        </template>
+
+
+                        <!-- EMPTY -->
+
+                        <template if:false={applications.length}>
+
+                            <div class="empty-container">
+
+                                <h3>
+                                    No Pending Applications
+                                </h3>
+
+                                <p>
+                                    There are currently no applications
+                                    waiting for review.
+                                </p>
+
+                            </div>
+
+                        </template>
+
+                    </template>
+
+                </template>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- SHORTLISTED APPLICATIONS -->
+            <!-- ================================================== -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        Shortlisted Applications
+                    </h2>
+
+                    <span>
+                        {shortlistedApplications.length}
+                    </span>
+
+                </div>
+
+
+                <template if:true={shortlistedApplications.length}>
+
+                    <lightning-datatable
+                        key-field="Id"
+                        data={shortlistedApplications}
+                        columns={columns}>
+                    </lightning-datatable>
+
+                </template>
+
+
+                <template if:false={shortlistedApplications.length}>
+
+                    <div class="empty-container">
+
+                        <h3>
+                            No Shortlisted Applications
+                        </h3>
+
+                        <p>
+                            No applications have been shortlisted yet.
+                        </p>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- REJECTED APPLICATIONS -->
+            <!-- ================================================== -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <h2>
+                        Rejected Applications
+                    </h2>
+
+                    <span>
+                        {rejectedApplications.length}
+                    </span>
+
+                </div>
+
+
+                <template if:true={rejectedApplications.length}>
+
+                    <lightning-datatable
+                        key-field="Id"
+                        data={rejectedApplications}
+                        columns={columns}>
+                    </lightning-datatable>
+
+                </template>
+
+
+                <template if:false={rejectedApplications.length}>
+
+                    <div class="empty-container">
+
+                        <h3>
+                            No Rejected Applications
+                        </h3>
+
+                        <p>
+                            No applications have been rejected yet.
+                        </p>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+        </div>
+
+    </lightning-card>
+
+</template>
