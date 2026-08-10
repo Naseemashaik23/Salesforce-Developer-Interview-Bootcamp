@@ -1,0 +1,419 @@
+/* ==========================================================
+   MAIN CONTAINER
+   ========================================================== */
+
+.details-container {
+
+    padding: 24px;
+
+}
+
+
+/* ==========================================================
+   JOB HEADER
+   ========================================================== */
+
+.job-header {
+
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid #d8dde6;
+
+}
+
+
+.job-header h1 {
+
+    font-size: 30px;
+
+    margin: 0 0 8px 0;
+
+}
+
+
+.job-header h2 {
+
+    font-size: 20px;
+
+    margin: 0 0 10px 0;
+
+}
+
+
+.package {
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+}
+
+
+/* ==========================================================
+   DETAIL SECTIONS
+   ========================================================== */
+
+.detail-section {
+
+    padding: 24px 0;
+
+    border-bottom: 1px solid #d8dde6;
+
+}
+
+
+.detail-section h3 {
+
+    font-size: 18px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.detail-section p {
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+}
+
+
+/* ==========================================================
+   JOB INFORMATION GRID
+   ========================================================== */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+
+}
+
+
+.info-grid span {
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+}
+
+
+.info-grid p {
+
+    margin-top: 5px;
+
+}
+
+
+/* ==========================================================
+   ACTION BUTTONS
+   ========================================================== */
+
+.actions {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 24px;
+
+}
+
+
+/* ==========================================================
+   CONFIRMATION MODAL
+   ========================================================== */
+
+.custom-modal {
+
+    position: fixed;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+
+    max-width: 500px;
+
+    z-index: 10001;
+
+}
+
+
+.custom-modal-container {
+
+    background: white;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.25);
+
+}
+
+
+/* HEADER */
+
+.custom-modal-header {
+
+    position: relative;
+
+    padding: 20px;
+
+    border-bottom: 1px solid #d8dde6;
+
+}
+
+
+.custom-modal-header h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+}
+
+
+/* CLOSE */
+
+.close-button {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 16px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+}
+
+
+/* BODY */
+
+.custom-modal-body {
+
+    padding: 24px;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+}
+
+
+/* FOOTER */
+
+.custom-modal-footer {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding: 16px 20px;
+
+    border-top: 1px solid #d8dde6;
+
+}
+
+
+/* BACKDROP */
+
+.modal-backdrop {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    z-index: 10000;
+
+}
+
+
+/* ==========================================================
+   ERROR MESSAGE
+   ========================================================== */
+
+.error-message {
+
+    margin-top: 16px;
+
+    padding: 12px;
+
+    border-radius: 6px;
+
+    background: #fcebea;
+
+    color: #ba0517;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ==========================================================
+   SUCCESS POPUP
+   ========================================================== */
+
+.success-modal {
+
+    position: fixed;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+
+    max-width: 450px;
+
+    z-index: 20001;
+
+}
+
+
+.success-modal-container {
+
+    position: relative;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.3);
+
+    padding: 35px 30px;
+
+}
+
+
+/* SUCCESS CLOSE */
+
+.success-close-button {
+
+    position: absolute;
+
+    top: 10px;
+
+    right: 15px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+}
+
+
+/* SUCCESS CONTENT */
+
+.success-content {
+
+    text-align: center;
+
+    padding: 10px;
+
+}
+
+
+.success-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    margin: 0 auto 18px auto;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    background: #e8f5e9;
+
+    color: #2e844a;
+
+}
+
+
+.success-content h2 {
+
+    font-size: 22px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.success-content p {
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    margin: 0;
+
+}
+
+
+/* SUCCESS BACKDROP */
+
+.success-backdrop {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    z-index: 20000;
+
+}
