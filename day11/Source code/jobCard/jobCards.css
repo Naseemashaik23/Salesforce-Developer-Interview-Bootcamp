@@ -1,0 +1,43 @@
+.job-card {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+
+.job-info h2 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+.job-role {
+    margin: 0 0 6px 0;
+    color: #555;
+}
+
+
+.package {
+    margin: 0;
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   ACTION BUTTONS
+   ========================================================== */
+
+.job-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
