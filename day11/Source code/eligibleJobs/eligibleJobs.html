@@ -1,1 +1,107 @@
 
+<template>
+
+    <!-- ====================================================== -->
+<!-- MAIN CARD -->
+<!-- ====================================================== -->
+
+<lightning-card title="Eligible Jobs">
+
+    <div class="jobs-container">
+
+
+        <!-- ================================================= -->
+        <!-- LOADING STATE -->
+        <!-- ================================================= -->
+
+        <template if:true={isLoading}>
+
+            <div class="loading-container">
+
+                <lightning-spinner
+                    alternative-text="Loading eligible jobs"
+                    size="medium">
+                </lightning-spinner>
+
+                <p>
+                    Loading eligible jobs...
+                </p>
+
+            </div>
+
+        </template>
+
+
+        <!-- ================================================= -->
+        <!-- ERROR STATE -->
+        <!-- ================================================= -->
+
+        <template if:true={errorMessage}>
+
+            <div class="error-container">
+
+                <p>
+                    {errorMessage}
+                </p>
+
+            </div>
+
+        </template>
+
+
+        <!-- ================================================= -->
+        <!-- DATA / EMPTY STATE -->
+        <!-- ================================================= -->
+
+        <template if:false={isLoading}>
+
+            <template if:false={errorMessage}>
+
+
+                <!-- ========================================= -->
+                <!-- EMPTY STATE -->
+                <!-- ========================================= -->
+
+                <template if:false={jobs.length}>
+
+    <c-empty-state
+        title="No Eligible Jobs"
+        message="There are currently no jobs matching your eligibility."
+        action-label="Update Profile"
+        onaction={handleUpdateProfile}>
+    </c-empty-state>
+
+</template>
+
+
+                <!-- ========================================= -->
+                <!-- JOB LIST -->
+                <!-- ========================================= -->
+
+                <template
+                    for:each={jobs}
+                    for:item="job">
+
+
+                    <!-- ===================================== -->
+                    <!-- JOB CARD COMPONENT -->
+                    <!-- ===================================== -->
+
+                    <c-job-card
+                        key={job.id}
+                        job={job}
+                        onviewdetails={handleViewDetails}>
+                    </c-job-card>
+
+
+                </template>
+
+            </template>
+
+        </template>
+
+    </div>
+
+</lightning-card>
+
+</template>
