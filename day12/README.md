@@ -1,116 +1,204 @@
-# Salesforce Sprint 11 – Integration & API Development
+# Placement Management System
 
-## Overview
+## Sprint 31 – Final Integration
 
-Sprint 11 focused on Salesforce integration and API development. During this sprint, I learned how Salesforce communicates with external systems using REST APIs, Apex HTTP Callouts, Named Credentials, Queueable Apex, authentication, error handling, retry mechanisms, integration tracking, and API contracts.
+Today I worked on connecting the main parts of the Placement Management System into one complete workflow.
 
-As part of the practical implementation, I extended the **Placement Management System** to integrate selected candidates with an external recruitment system.
+## What I Completed Today
+
+### 1. Student Profile
+
+Created and integrated the Student Profile component.
+
+The student can:
+
+- View profile details
+- Edit phone and email
+- Update department
+- Update CGPA
+- Update skills
+- Update preferred location
+- Save changes
+- Cancel changes
+
+CGPA validation was also added before saving the profile.
 
 ---
 
-## Learning & Development
+### 2. Eligible Jobs
 
-### 1. APIs
+Updated the Eligible Jobs component to display jobs based on the student's eligibility.
 
-An API (Application Programming Interface) allows two different software systems to communicate with each other. I learned how Salesforce can exchange data with external applications through APIs.
+The job list shows:
 
-### 2. REST APIs
-
-I learned the fundamentals of REST-based integration and how Salesforce communicates with external services using HTTP methods such as:
-
-- GET
-- POST
-- PUT
-- PATCH
-- DELETE
-
-I used a REST API integration in the Placement Management System to send selected candidate information to an external recruitment system.
-
-### 3. HTTP Requests and Responses
-
-I learned how an HTTP request contains an endpoint, method, headers, and request body, and how an external system returns a response containing a status code and response data.
-
-### 4. JSON
-
-I learned how JSON is used to exchange structured data between Salesforce and external systems.
-
-For the candidate integration, I created a JSON payload containing:
-
-- Student ID
-- Student Name
-- Email
-- Department
-- CGPA
-- Job ID
 - Company
-- Role
-- Selection Date
+- Job Role
+- Package
+- Location
+- Eligibility information
 
-### 5. HTTP Status Codes
+It also handles:
 
-I learned how Salesforce can handle different API responses.
+- Loading
+- Empty job list
+- Errors
 
-The integration handles:
+---
 
-- `201` – Successful request
-- `400` – Bad Request
-- `401` – Authentication Failure
-- `403` – Forbidden
-- `500` – Server Error
-- Other unexpected HTTP status codes
+### 3. Job Card
 
-### 6. Apex HTTP Callouts
+Created a reusable Job Card component.
 
-I learned how Apex can communicate with external APIs using:
+Each job card contains:
 
-- `HttpRequest`
-- `Http`
-- `HttpResponse`
+- Company name
+- Job role
+- Package
+- View Details button
+- Apply button
 
-I implemented the `CandidateCalloutService` Apex class to perform the external recruitment API callout.
+The Job Card communicates with the parent Eligible Jobs component using Custom Events.
 
-### 7. Named Credentials
+---
 
-I learned how Named Credentials provide a secure way to configure external API connections in Salesforce.
+### 4. Job Details
 
-The Apex integration uses the Named Credential:
+Integrated the Job Details page.
 
-`Recruitment_API`
+It displays complete job information such as:
 
-and references it through the callout endpoint instead of directly managing the external connection inside the business logic.
+- Company
+- Job Role
+- Package
+- Location
+- Mode of Work
+- Bond Details
+- Internship
+- Expected Skills
+- Job Description
+- Minimum CGPA
+- Graduation Year
+- Closing Date
+- Status
 
-### 8. Authentication and Authorization
+---
 
-I learned the difference between authentication and authorization and why integration credentials should be handled securely.
+### 5. Apply Workflow
 
-I also learned the role of Named Credentials and Auth Providers in Salesforce integrations.
+Connected the Apply button with the existing Apex application logic.
 
-### 9. Queueable Apex
+The workflow is:
 
-I learned how Queueable Apex is used to perform asynchronous processing.
+Student
+↓
+Eligible Jobs
+↓
+Job Card
+↓
+Job Details
+↓
+Apply
+↓
+Confirm Application
+↓
+ApplicationController
+↓
+ApplicationService
+↓
+Application Record
 
-I created:
+The logged-in Salesforce user is automatically connected with the correct Student record.
 
-`CandidateSyncQueueable`
+---
 
-which implements:
+### 6. Lightning Message Service
 
-- `Queueable`
-- `Database.AllowsCallouts`
+Created the `StudentProfileRefresh` Message Channel.
 
-The Queueable receives the Application ID and retry count and then calls the candidate integration service.
+This connects Student Profile with Eligible Jobs.
 
-### 10. Asynchronous Callouts
+Workflow:
 
-I learned why external API operations can be handled asynchronously instead of being performed directly inside the main Salesforce transaction.
+Student updates profile
+↓
+Profile saved
+↓
+Message sent
+↓
+Eligible Jobs receives message
+↓
+Eligible Jobs reloads
 
-The implementation follows:
+This allows the job list to update when student eligibility information changes.
+
+---
+
+### 7. Eligibility Testing
+
+Tested the profile and job integration by changing the student's CGPA.
+
+After changing the CGPA:
+
+- Student profile was updated.
+- Eligible Jobs refreshed.
+- Jobs that no longer matched the eligibility disappeared.
+
+This confirmed that student profile information affects the eligible job list.
+
+---
+
+### 8. Application Email Flow
+
+The Application creation process is connected to a Salesforce Record-Triggered Flow.
+
+Flow:
+
+Application Created
+↓
+Add Recipient Email
+↓
+Send Email
+↓
+Placement Officer
+
+During testing, the email Flow produced a
+`CANNOT_EXECUTE_FLOW_TRIGGER` error.
+
+The email Flow is currently being investigated.
+
+The existing LWC, Apex Controller and Application Service workflow was not changed while debugging this issue.
+
+---
+
+## Component Flow
 
 ```text
+Student Profile
+       ↓
+Profile Updated
+       ↓
+Eligible Jobs Refresh
+       ↓
+Select Job
+       ↓
+Job Details
+       ↓
+Apply
+       ↓
+ApplicationController
+       ↓
+ApplicationService
+       ↓
 Application
-    ↓
-Queueable Apex
-    ↓
-CandidateCalloutService
-    ↓
-External REST API
+
+##Challenges Faced
+Salesforce CLI connection/deployment issue
+Message Channel deployment issue
+Student Profile component visibility issue
+Eligible Jobs refresh after profile changes
+Application Email Flow error
+
+All major component and application workflows were kept intact while fixing these issues.
+##Sprint 31 Outcome
+
+Today I connected the major components of the Placement Management System and created an end-to-end student placement workflow from Student Profile → Eligible Jobs → Job Details → Application.
