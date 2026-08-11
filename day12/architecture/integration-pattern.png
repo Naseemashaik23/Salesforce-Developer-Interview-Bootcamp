@@ -1,0 +1,5 @@
+┌──────────────┐          ┌─────────────────────────┐
+│  Salesforce  │ <------> │ External Recruitment API│
+└──────────────┘          └─────────────────────────┘
+
+        Point-to-Point Integration
