@@ -1,0 +1,15 @@
+Application Selected
+        ↓
+CandidateSyncQueueable
+        ↓
+CandidateCalloutService
+        ↓
+Named Credential
+        ↓
+Recruitment REST API
+        ↓
+Response
+   ↙          ↘
+Success       Error
+  ↓             ↓
+Sent          Failed/Retry
