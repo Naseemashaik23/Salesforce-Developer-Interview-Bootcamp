@@ -1,0 +1,491 @@
+<template>
+
+    <!-- ===================================================== -->
+    <!-- LOADING STATE -->
+    <!-- ===================================================== -->
+
+    <template if:true={isLoading}>
+
+        <div class="loading-container">
+
+            <lightning-spinner
+                alternative-text="Loading job details"
+                size="medium">
+            </lightning-spinner>
+
+            <p>
+                Loading job details...
+            </p>
+
+        </div>
+
+    </template>
+
+
+    <!-- ===================================================== -->
+    <!-- ERROR STATE -->
+    <!-- ===================================================== -->
+
+    <template if:true={errorMessage}>
+
+        <div class="error-container">
+
+            <h2>
+                Unable to Load Job
+            </h2>
+
+            <p>
+                {errorMessage}
+            </p>
+
+            <lightning-button
+                label="Back to Eligible Jobs"
+                onclick={handleBack}>
+            </lightning-button>
+
+        </div>
+
+    </template>
+
+
+    <!-- ===================================================== -->
+    <!-- JOB DETAILS PAGE -->
+    <!-- ===================================================== -->
+
+    <template if:true={job}>
+
+        <lightning-card title="Job Details">
+
+            <div class="details-container">
+
+
+                <!-- ================================================= -->
+                <!-- JOB HEADER -->
+                <!-- ================================================= -->
+
+                <div class="job-header">
+
+                    <h1>
+                        {job.companyName}
+                    </h1>
+
+                    <h2>
+                        {job.jobRole}
+                    </h2>
+
+                    <p class="package">
+                        {job.packageOffered}
+                    </p>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- JOB DESCRIPTION -->
+                <!-- ================================================= -->
+
+                <div class="detail-section">
+
+                    <h3>
+                        Job Description
+                    </h3>
+
+                    <p>
+                        {job.jobDescription}
+                    </p>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- JOB INFORMATION -->
+                <!-- ================================================= -->
+
+                <div class="detail-section">
+
+                    <h3>
+                        Job Information
+                    </h3>
+
+                    <div class="info-grid">
+
+
+                        <!-- LOCATION -->
+
+                        <div>
+
+                            <span>
+                                Location
+                            </span>
+
+                            <p>
+                                {job.location}
+                            </p>
+
+                        </div>
+
+
+                        <!-- MODE OF WORK -->
+
+                        <div>
+
+                            <span>
+                                Mode of Work
+                            </span>
+
+                            <p>
+                                {job.workMode}
+                            </p>
+
+                        </div>
+
+
+                        <!-- BOND DETAILS -->
+
+                        <div>
+
+                            <span>
+                                Bond Details
+                            </span>
+
+                            <p>
+                                {job.bondDetails}
+                            </p>
+
+                        </div>
+
+
+                        <!-- INTERNSHIP PERIOD -->
+
+                        <div>
+
+                            <span>
+                                Internship Period
+                            </span>
+
+                            <p>
+                                {job.internshipPeriod}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- EXPECTED SKILLS -->
+                <!-- ================================================= -->
+
+                <div class="detail-section">
+
+                    <h3>
+                        Expected Skills
+                    </h3>
+
+                    <p>
+                        {job.expectedSkills}
+                    </p>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- ACTION BUTTONS -->
+                <!-- ================================================= -->
+
+                <div class="actions">
+
+
+                    <!-- BACK -->
+
+                    <lightning-button
+                        label="Back to Eligible Jobs"
+                        onclick={handleBack}>
+                    </lightning-button>
+
+
+                    <!-- ================================================= -->
+                    <!-- APPLY NOW -->
+                    <!-- ================================================= -->
+
+                    <template if:false={hasApplied}>
+
+                        <lightning-button
+                            variant="brand"
+                            label="Apply Now"
+                            onclick={handleApply}>
+                        </lightning-button>
+
+                    </template>
+
+
+                    <!-- ================================================= -->
+                    <!-- ALREADY APPLIED -->
+                    <!-- ================================================= -->
+
+                    <template if:true={hasApplied}>
+
+                        <lightning-button
+                            variant="success"
+                            label="✓ Already Applied"
+                            disabled>
+                        </lightning-button>
+
+                    </template>
+
+                </div>
+
+            </div>
+
+        </lightning-card>
+
+    </template>
+
+
+    <!-- ===================================================== -->
+    <!-- CONFIRMATION MODAL -->
+    <!-- ===================================================== -->
+
+    <template if:true={showApplyModal}>
+
+        <section
+            role="dialog"
+            tabindex="-1"
+            aria-modal="true"
+            class="custom-modal">
+
+            <div class="custom-modal-container">
+
+
+                <!-- ================================================= -->
+                <!-- MODAL HEADER -->
+                <!-- ================================================= -->
+
+                <div class="custom-modal-header">
+
+                    <h2>
+                        Confirm Application
+                    </h2>
+
+
+                    <!-- CLOSE BUTTON -->
+
+                    <button
+                        class="close-button"
+                        title="Close"
+                        onclick={handleCancel}
+                        disabled={isApplying}>
+
+                        ×
+
+                    </button>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- MODAL BODY -->
+                <!-- ================================================= -->
+
+                <div class="custom-modal-body">
+
+
+                    <!-- NORMAL CONFIRMATION -->
+
+                    <template if:false={isApplying}>
+
+                        <p>
+
+                            Are you sure you want to apply for
+
+                            <strong>
+                                {job.jobRole}
+                            </strong>
+
+                            at
+
+                            <strong>
+                                {job.companyName}
+                            </strong>?
+
+                        </p>
+
+                    </template>
+
+
+                    <!-- ================================================= -->
+                    <!-- SUBMITTING STATE -->
+                    <!-- ================================================= -->
+
+                    <template if:true={isApplying}>
+
+                        <div class="processing-container">
+
+                            <lightning-spinner
+                                alternative-text="Submitting application"
+                                size="medium">
+                            </lightning-spinner>
+
+                            <p class="processing-text">
+
+                                Submitting your application...
+
+                            </p>
+
+                        </div>
+
+                    </template>
+
+
+                    <!-- ================================================= -->
+                    <!-- APPLICATION ERROR -->
+                    <!-- ================================================= -->
+
+                    <template if:true={applicationError}>
+
+                        <div class="error-message">
+
+                            <strong>
+                                Application could not be submitted.
+                            </strong>
+
+                            <br />
+
+                            {applicationError}
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- MODAL FOOTER -->
+                <!-- ================================================= -->
+
+                <template if:false={isApplying}>
+
+                    <div class="custom-modal-footer">
+
+
+                        <!-- CANCEL -->
+
+                        <lightning-button
+                            label="Cancel"
+                            onclick={handleCancel}>
+                        </lightning-button>
+
+
+                        <!-- CONFIRM -->
+
+                        <lightning-button
+                            variant="brand"
+                            label="Confirm Apply"
+                            onclick={handleConfirmApply}>
+                        </lightning-button>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+        </section>
+
+
+        <!-- MODAL BACKDROP -->
+
+        <div class="modal-backdrop"></div>
+
+    </template>
+
+
+    <!-- ===================================================== -->
+    <!-- SUCCESS POPUP -->
+    <!-- ===================================================== -->
+
+    <template if:true={applicationSubmitted}>
+
+        <section
+            role="dialog"
+            tabindex="-1"
+            aria-modal="true"
+            class="success-modal">
+
+            <div class="success-modal-container">
+
+
+                <!-- ================================================= -->
+                <!-- CLOSE BUTTON -->
+                <!-- ================================================= -->
+
+                <button
+                    class="success-close-button"
+                    title="Close"
+                    onclick={handleCloseSuccess}>
+
+                    ×
+
+                </button>
+
+
+                <!-- ================================================= -->
+                <!-- SUCCESS CONTENT -->
+                <!-- ================================================= -->
+
+                <div class="success-content">
+
+
+                    <!-- SUCCESS ICON -->
+
+                    <div class="success-icon">
+
+                        ✓
+
+                    </div>
+
+
+                    <!-- SUCCESS TITLE -->
+
+                    <h2>
+                        Application Submitted!
+                    </h2>
+
+
+                    <!-- SUCCESS MESSAGE -->
+
+                    <p>
+
+                        Your application for
+
+                        <strong>
+                            {job.jobRole}
+                        </strong>
+
+                        at
+
+                        <strong>
+                            {job.companyName}
+                        </strong>
+
+                        has been submitted successfully.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUCCESS BACKDROP -->
+
+        <div class="success-backdrop"></div>
+
+    </template>
+
+</template>

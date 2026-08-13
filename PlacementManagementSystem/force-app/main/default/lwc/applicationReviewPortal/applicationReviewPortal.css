@@ -1,0 +1,241 @@
+.portal-container {
+    padding: 20px;
+}
+
+
+.application-section {
+    margin-bottom: 30px;
+}
+
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+
+    border-bottom: 2px solid #e5e5e5;
+}
+
+
+.section-heading h2 {
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+.count-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 26px;
+
+    height: 26px;
+
+    padding: 0 8px;
+
+    border-radius: 13px;
+
+    background: #eef4ff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.section-content {
+    padding-left: 5px;
+}
+
+
+.state-container {
+    text-align: center;
+
+    padding: 30px;
+}
+
+
+.state-container p {
+    margin-top: 15px;
+}
+
+
+.empty-container {
+    padding: 20px;
+
+    text-align: center;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 8px;
+}
+
+
+.empty-container p {
+    margin: 0;
+}
+
+
+.error-container {
+    padding: 20px;
+
+    border-radius: 8px;
+
+    border: 1px solid #e5e5e5;
+}
+
+
+.error-container h3 {
+    margin-top: 0;
+}
+
+
+/* ==========================================================
+   SCHEDULE INTERVIEW MODAL
+   ========================================================== */
+
+.custom-modal {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+
+    max-width: 650px;
+
+    z-index: 10000;
+}
+
+
+.custom-modal-container {
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+    overflow: hidden;
+}
+
+
+/* ==========================================================
+   MODAL HEADER
+   ========================================================== */
+
+.custom-modal-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 18px 22px;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+.custom-modal-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+
+.close-button {
+    border: none;
+
+    background: transparent;
+
+    font-size: 26px;
+
+    cursor: pointer;
+
+    line-height: 1;
+}
+
+
+/* ==========================================================
+   MODAL BODY
+   ========================================================== */
+
+.custom-modal-body {
+    padding: 22px;
+
+    max-height: 70vh;
+
+    overflow-y: auto;
+}
+
+
+/* ==========================================================
+   INTERVIEW SUMMARY
+   ========================================================== */
+
+.interview-summary {
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+    background: #f7f9fb;
+
+    border: 1px solid #e5e5e5;
+}
+
+
+.interview-summary p {
+    margin: 6px 0;
+}
+
+
+/* ==========================================================
+   MODAL FOOTER
+   ========================================================== */
+
+.custom-modal-footer {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #e5e5e5;
+}
+
+
+/* ==========================================================
+   MODAL BACKDROP
+   ========================================================== */
+
+.modal-backdrop {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    z-index: 9999;
+}

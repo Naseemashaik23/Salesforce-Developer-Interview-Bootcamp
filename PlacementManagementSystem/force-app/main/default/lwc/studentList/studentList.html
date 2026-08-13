@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title="Student Placement Management">
+
+        <template if:true={students.data}>
+            <div class="slds-p-around_medium">
+
+                <template for:each={students.data} for:item="student">
+
+                    <div key={student.Id}
+                         class="slds-box slds-m-bottom_medium">
+
+                        <p><strong>Name:</strong> {student.Name}</p>
+
+                        <p><strong>Roll Number:</strong>
+                            {student.Roll_Number__c}
+                        </p>
+
+                        <p><strong>Department:</strong>
+                            {student.Department__c}
+                        </p>
+
+                        <p><strong>CGPA:</strong>
+                            {student.CGPA__c}
+                        </p>
+
+                    </div>
+
+                </template>
+
+            </div>
+        </template>
+
+    </lightning-card>
+</template>

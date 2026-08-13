@@ -1,0 +1,192 @@
+<template>
+
+    <lightning-card
+        title="Student Profile"
+        icon-name="standard:contact">
+
+        <div class="profile-container">
+
+
+            <!-- ================================================= -->
+            <!-- LOADING -->
+            <!-- ================================================= -->
+
+            <template if:true={isLoading}>
+
+                <div class="state-container">
+
+                    <lightning-spinner
+                        alternative-text="Loading student profile"
+                        size="medium">
+                    </lightning-spinner>
+
+                    <p>
+                        Loading profile...
+                    </p>
+
+                </div>
+
+            </template>
+
+
+            <!-- ================================================= -->
+            <!-- ERROR -->
+            <!-- ================================================= -->
+
+            <template if:true={errorMessage}>
+
+                <div class="error-container">
+
+                    <h3>
+                        Unable to Load Profile
+                    </h3>
+
+                    <p>
+                        {errorMessage}
+                    </p>
+
+                </div>
+
+            </template>
+
+
+            <!-- ================================================= -->
+            <!-- PROFILE FORM -->
+            <!-- ================================================= -->
+
+            <template if:false={isLoading}>
+
+                <template if:false={errorMessage}>
+
+                    <template if:true={student}>
+
+
+                        <!-- ===================================== -->
+                        <!-- STUDENT NAME -->
+                        <!-- ===================================== -->
+
+                        <div class="profile-header">
+
+                            <h2>
+                                {student.Name}
+                            </h2>
+
+                            <p>
+                                Student Profile
+                            </p>
+
+                        </div>
+
+
+                        <!-- ===================================== -->
+                        <!-- FORM -->
+                        <!-- ===================================== -->
+
+                        <div class="form-container">
+
+
+                            <!-- PHONE -->
+
+                            <lightning-input
+                                label="Phone"
+                                name="Phone__c"
+                                type="tel"
+                                value={student.Phone__c}
+                                onchange={handleChange}
+                                required>
+                            </lightning-input>
+
+
+                            <!-- EMAIL -->
+
+                            <lightning-input
+                                label="Email"
+                                name="Email__c"
+                                type="email"
+                                value={student.Email__c}
+                                onchange={handleChange}
+                                required>
+                            </lightning-input>
+
+
+                            <!-- DEPARTMENT / BRANCH -->
+
+                            <lightning-combobox
+                                label="Branch"
+                                name="Department__c"
+                                value={student.Department__c}
+                                options={departmentOptions}
+                                onchange={handleChange}
+                                required>
+                            </lightning-combobox>
+
+
+                            <!-- CGPA -->
+
+                            <lightning-input
+                                label="CGPA"
+                                name="CGPA__c"
+                                type="number"
+                                step="0.01"
+                                min="0"
+                                max="10"
+                                value={student.CGPA__c}
+                                onchange={handleChange}
+                                required>
+                            </lightning-input>
+
+
+                            <!-- SKILLS -->
+
+                            <lightning-textarea
+                                label="Skills"
+                                name="Skills__c"
+                                value={student.Skills__c}
+                                onchange={handleChange}>
+                            </lightning-textarea>
+
+
+                            <!-- PREFERRED LOCATION -->
+
+                            <lightning-input
+                                label="Preferred Location"
+                                name="Preferred_Location__c"
+                                value={student.Preferred_Location__c}
+                                onchange={handleChange}>
+                            </lightning-input>
+
+
+                            <!-- BUTTONS -->
+
+                            <div class="button-container">
+
+                                <lightning-button
+                                    label="Cancel"
+                                    variant="neutral"
+                                    onclick={handleCancel}
+                                    disabled={isSaving}>
+                                </lightning-button>
+
+
+                                <lightning-button
+                                    label={saveButtonLabel}
+                                    variant="brand"
+                                    onclick={handleSave}
+                                    disabled={isSaving}>
+                                </lightning-button>
+
+                            </div>
+
+                        </div>
+
+                    </template>
+
+                </template>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>

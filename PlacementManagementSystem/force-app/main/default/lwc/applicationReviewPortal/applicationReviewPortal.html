@@ -1,0 +1,390 @@
+<template>
+
+    <lightning-card
+        title="Application Review Portal"
+        icon-name="standard:people">
+
+        <div class="portal-container">
+
+
+            <!-- ================================================== -->
+            <!-- PENDING APPLICATIONS -->
+            <!-- ================================================== -->
+
+            <div class="application-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Pending Applications
+                    </h2>
+
+                    <span class="count-badge">
+                        {applications.length}
+                    </span>
+
+                </div>
+
+
+                <div class="section-content">
+
+
+                    <!-- LOADING -->
+
+                    <template if:true={isLoading}>
+
+                        <div class="state-container">
+
+                            <lightning-spinner
+                                alternative-text="Loading applications"
+                                size="medium">
+                            </lightning-spinner>
+
+                            <p>
+                                Loading applications...
+                            </p>
+
+                        </div>
+
+                    </template>
+
+
+                    <!-- ERROR -->
+
+                    <template if:true={errorMessage}>
+
+                        <div class="error-container">
+
+                            <h3>
+                                Unable to Load Applications
+                            </h3>
+
+                            <p>
+                                {errorMessage}
+                            </p>
+
+                        </div>
+
+                    </template>
+
+
+                    <!-- DATA -->
+
+                    <template if:false={isLoading}>
+
+                        <template if:false={errorMessage}>
+
+                            <template if:true={applications.length}>
+
+                                <lightning-datatable
+                                    key-field="Id"
+                                    data={applications}
+                                    columns={columns}
+                                    onrowaction={handleRowAction}>
+                                </lightning-datatable>
+
+                            </template>
+
+
+                            <!-- EMPTY -->
+
+                            <template if:false={applications.length}>
+
+                                <div class="empty-container">
+
+                                    <p>
+                                        No pending applications
+                                        waiting for review.
+                                    </p>
+
+                                </div>
+
+                            </template>
+
+                        </template>
+
+                    </template>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- SHORTLISTED APPLICATIONS -->
+            <!-- ================================================== -->
+
+            <div class="application-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Shortlisted Applications
+                    </h2>
+
+                    <span class="count-badge">
+                        {shortlistedApplications.length}
+                    </span>
+
+                </div>
+
+
+                <div class="section-content">
+
+                    <template if:true={shortlistedApplications.length}>
+
+                        <lightning-datatable
+                            key-field="Id"
+                            data={shortlistedApplications}
+                            columns={shortlistedColumns}
+                            onrowaction={handleRowAction}>
+                        </lightning-datatable>
+
+                    </template>
+
+
+                    <template if:false={shortlistedApplications.length}>
+
+                        <div class="empty-container">
+
+                            <p>
+                                No shortlisted applications.
+                            </p>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- REJECTED APPLICATIONS -->
+            <!-- ================================================== -->
+
+            <div class="application-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Rejected Applications
+                    </h2>
+
+                    <span class="count-badge">
+                        {rejectedApplications.length}
+                    </span>
+
+                </div>
+
+
+                <div class="section-content">
+
+                    <template if:true={rejectedApplications.length}>
+
+                        <lightning-datatable
+                            key-field="Id"
+                            data={rejectedApplications}
+                            columns={rejectedColumns}>
+                        </lightning-datatable>
+
+                    </template>
+
+
+                    <template if:false={rejectedApplications.length}>
+
+                        <div class="empty-container">
+
+                            <p>
+                                No rejected applications.
+                            </p>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </lightning-card>
+
+
+    <!-- ====================================================== -->
+    <!-- SCHEDULE INTERVIEW MODAL -->
+    <!-- ====================================================== -->
+
+    <template if:true={showInterviewModal}>
+
+        <section
+            role="dialog"
+            tabindex="-1"
+            aria-modal="true"
+            class="custom-modal">
+
+
+            <div class="custom-modal-container">
+
+
+                <!-- ================================================== -->
+                <!-- MODAL HEADER -->
+                <!-- ================================================== -->
+
+                <div class="custom-modal-header">
+
+                    <h2>
+                        Schedule Interview
+                    </h2>
+
+
+                    <button
+                        class="close-button"
+                        title="Close"
+                        onclick={handleCloseInterviewModal}>
+
+                        ×
+
+                    </button>
+
+                </div>
+
+
+                <!-- ================================================== -->
+                <!-- MODAL BODY -->
+                <!-- ================================================== -->
+
+                <div class="custom-modal-body">
+
+
+                    <!-- APPLICATION SUMMARY -->
+
+                    <div class="interview-summary">
+
+                        <p>
+
+                            <strong>
+                                Student:
+                            </strong>
+
+                            {selectedStudentName}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                Job:
+                            </strong>
+
+                            {selectedJobName}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                Company:
+                            </strong>
+
+                            {selectedCompanyName}
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- ================================================== -->
+                    <!-- INTERVIEW FORM -->
+                    <!-- ================================================== -->
+
+                    <lightning-record-edit-form
+                        object-api-name="Interview_c__c"
+                        onsubmit={handleInterviewSubmit}>
+
+
+                        <!-- INTERVIEW DATE -->
+
+                        <lightning-input-field
+                            field-name="Interview_Date__c"
+                            required>
+                        </lightning-input-field>
+
+
+                        <!-- INTERVIEW TIME -->
+
+                        <lightning-input-field
+                            field-name="Interview_Time__c"
+                            required>
+                        </lightning-input-field>
+
+
+                        <!-- INTERVIEW MODE -->
+
+                        <lightning-input-field
+                            field-name="Interview_Mode__c"
+                            required>
+                        </lightning-input-field>
+
+
+                        <!-- INTERVIEW ROUND -->
+
+                        <lightning-input-field
+                            field-name="Interview_Round__c"
+                            required>
+                        </lightning-input-field>
+
+
+                        <!-- INTERVIEWER -->
+
+                        <lightning-input-field
+                            field-name="Interviewer__c"
+                            required>
+                        </lightning-input-field>
+
+
+                        <!-- ================================================== -->
+                        <!-- FOOTER -->
+                        <!-- ================================================== -->
+
+                        <div class="custom-modal-footer">
+
+
+                            <lightning-button
+                                label="Cancel"
+                                onclick={handleCloseInterviewModal}
+                                disabled={isProcessing}>
+                            </lightning-button>
+
+
+                            <lightning-button
+                                variant="brand"
+                                type="submit"
+                                label="Schedule Interview"
+                                disabled={isProcessing}>
+                            </lightning-button>
+
+
+                        </div>
+
+                    </lightning-record-edit-form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MODAL BACKDROP -->
+
+        <div class="modal-backdrop"></div>
+
+    </template>
+
+</template>

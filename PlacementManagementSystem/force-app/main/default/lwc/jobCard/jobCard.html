@@ -1,0 +1,57 @@
+<template>
+
+    <template if:true={hasJob}>
+
+        <div class="job-card">
+
+            <!-- ================================================== -->
+            <!-- JOB INFORMATION -->
+            <!-- ================================================== -->
+
+            <div class="job-info">
+
+                <h2>
+                    {job.companyName}
+                </h2>
+
+                <p class="job-role">
+                    {job.jobRole}
+                </p>
+
+                <p class="package">
+                    {job.packageOffered}
+                </p>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- ACTIONS -->
+            <!-- ================================================== -->
+
+            <div class="job-action">
+
+                <!-- VIEW DETAILS -->
+
+                <lightning-button
+                    label="View Details"
+                    variant="brand-outline"
+                    onclick={handleViewDetails}>
+                </lightning-button>
+
+
+                <!-- APPLY -->
+
+                <lightning-button
+                    label="Apply"
+                    variant="brand"
+                    onclick={handleApply}>
+                </lightning-button>
+
+            </div>
+
+        </div>
+
+    </template>
+
+</template>

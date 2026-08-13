@@ -1,0 +1,38 @@
+<template>
+
+    <div class="empty-state">
+
+        <div class="icon-container">
+
+            <lightning-icon
+                icon-name="utility:info"
+                alternative-text="Information"
+                size="medium">
+            </lightning-icon>
+
+        </div>
+
+
+        <h2>
+            {title}
+        </h2>
+
+
+        <p>
+            {message}
+        </p>
+
+
+        <template if:true={hasAction}>
+
+            <lightning-button
+                label={actionLabel}
+                variant="brand-outline"
+                onclick={handleAction}>
+            </lightning-button>
+
+        </template>
+
+    </div>
+
+</template>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+
+    <apiVersion>67.0</apiVersion>
+
+    <isExposed>true</isExposed>
+
+    <targets>
+
+        <!-- Existing Lightning page support -->
+        <target>lightning__AppPage</target>
+
+        <!-- Allows direct URL navigation -->
+        <target>lightning__UrlAddressable</target>
+
+    </targets>
+
+</LightningComponentBundle>

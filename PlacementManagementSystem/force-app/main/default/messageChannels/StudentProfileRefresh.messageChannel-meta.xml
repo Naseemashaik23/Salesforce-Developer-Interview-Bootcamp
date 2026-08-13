@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+
+    <masterLabel>Student Profile Refresh</masterLabel>
+
+    <isExposed>true</isExposed>
+
+    <description>
+        Notifies components when the current student's profile is updated.
+    </description>
+
+</LightningMessageChannel>

@@ -1,0 +1,28 @@
+.jobs-container {
+    padding: 16px;
+}
+
+.job-card {
+    border: 1px solid #d8dde6;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+}
+
+.job-info h2 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+}
+
+.job-info p {
+    margin: 4px 0;
+    font-size: 15px;
+}
+
+.job-action {
+    margin-left: 20px;
+}
